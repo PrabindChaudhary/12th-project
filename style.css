@@ -1,0 +1,383 @@
+:root {
+    --bg-color: #0f0c29;
+    --text-color: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Outfit', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-body);
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    transition: background 1s ease;
+}
+
+/* Background Shapes */
+.bg-shape {
+    position: absolute;
+    filter: blur(100px);
+    z-index: -1;
+    animation: float 10s infinite alternate;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: #ff00cc;
+    top: -50px;
+    left: -50px;
+    border-radius: 50%;
+}
+
+.shape-2 {
+    width: 400px;
+    height: 400px;
+    background: #3333ff;
+    bottom: -100px;
+    right: -100px;
+    border-radius: 50%;
+    animation-delay: 2s;
+}
+
+.shape-3 {
+    width: 200px;
+    height: 200px;
+    background: #00ffcc;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation-delay: 5s;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(30px, 30px);
+    }
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    z-index: 10;
+}
+
+.main-header {
+    margin-bottom: 40px;
+    animation: fadeInDown 1s ease-out;
+}
+
+.project-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin: 0;
+    background: linear-gradient(to right, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 10px;
+}
+
+.mood-selector h2 {
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+.preference-selector {
+    margin-bottom: 30px;
+}
+
+.preference-selector p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.pref-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.pref-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.pref-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.pref-btn.active {
+    background: white;
+    color: var(--bg-color);
+    border-color: white;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.mood-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mood-btn {
+    background: var(--card-bg);
+    border: var(--glass-border);
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    flex: 0 1 auto;
+}
+
+.mood-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mood-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Glass Card Result */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    border: var(--glass-border);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    /* Key for Tilt Object */
+}
+
+.result-container:not(.hidden) .glass-card {
+    opacity: 1;
+    /* transform is handled by JS for tilt, but we set initial state here */
+}
+
+.hidden {
+    display: none;
+}
+
+.image-wrapper {
+    flex: 0 0 200px;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+.info-wrapper {
+    flex: 1;
+}
+
+.badge {
+    background: var(--primary-gradient);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.content h3 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin: 15px 0 5px 0;
+    line-height: 1.1;
+}
+
+.artist {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 20px 0;
+    font-style: italic;
+}
+
+.description {
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.action-btn {
+    display: inline-block;
+    text-decoration: none;
+    background: white;
+    color: var(--bg-color);
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background: #f0f0f0;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 11px 25px;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+.secondary-btn i {
+    transition: transform 0.5s ease;
+}
+
+.secondary-btn:hover i {
+    transform: rotate(180deg);
+}
+
+/* Loader */
+.loader {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .glass-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        height: 250px;
+        flex: none;
+        margin-bottom: 20px;
+    }
+
+    .info-wrapper {
+        width: 100%;
+    }
+
+    .project-title {
+        font-size: 2.5rem;
+    }
+}
